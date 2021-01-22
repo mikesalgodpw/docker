@@ -1,9 +1,7 @@
 version: '3'
 services:
   web:
-    #image: nginx:latest
-    container_name: web1
-    build: dockerfiles/webServer
+    image: nginx:latest
     ports:
       - "8080:80"
 
@@ -16,7 +14,6 @@ services:
 
     # image to fetch from docker hub
     image: mysql/mysql-server:5.7
-    container_name: mysql1
 
     # Environment variables for startup script
     # container will use these variables

@@ -1,5 +1,8 @@
 
 #tutorial is from: https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell
+#vi ~/.bashrc:
+
+alias k=kubectl
 
 export PROJECT_ID=cpb100-188605
 echo $PROJECT_ID

@@ -22,20 +22,16 @@
 <li> vi ~/.bashrc: alias k=kubectl</li>
 
 </ul>
-<h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Commands</h2>
+<h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>create a cluster</h2>
 <pre><code>
 
-#create a cluster
+
 export PROJECT_ID=cpb100-188605
 echo $PROJECT_ID
 
 gcloud config set project $PROJECT_ID
 gcloud config set compute/zone us-central1-c
 gcloud container clusters create hello-cluster
-
-
-
-
 
 #verify
 gcloud compute instances list
@@ -53,8 +49,6 @@ cd kubernetes-engine-samples/hello-app
 docker build -t gcr.io/${PROJECT_ID}/hello-app:v1 .
 gcloud auth configure-docker
 docker push gcr.io/${PROJECT_ID}/hello-app:v1
-
-
 </code></pre>
 
 <h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Deploy and scale</h2>
@@ -69,19 +63,16 @@ kubectl scale deployment hello-app --replicas=3
 kubectl autoscale deployment hello-app --cpu-percent=80 --min=1 --max=5
 
 gcloud container clusters resize hello-cluster --num-nodes=0 --zone us-central1-c
-
 </code></pre>
 
 
 <h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>new img</h2>
 <pre><code>
-
 docker build -t gcr.io/${PROJECT_ID}/hello-app:v2 .
 docker push gcr.io/${PROJECT_ID}/hello-app:v2
 
 kubectl set image deployment/hello-app hello-app=gcr.io/${PROJECT_ID}/hello-app:v2
 watch kubectl get pods
-
 </code></pre>
 
 

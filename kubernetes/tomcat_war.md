@@ -90,6 +90,13 @@ curl http://localhost:8080/dynamicWeb1/test.jsp
 kubectl create deployment test-tc --image=gcr.io/${PROJECT_ID}/test-tc:v1
 kubectl expose deployment test-tc --name=test-tc-service --type=LoadBalancer --port 80 --target-port 8080
 
+kubectl get service
+--> to get the public IP
+
+#verify:
+In browser:
+http://<public IP>:8080/dynamicWeb1/test.jsp
+
 #scale
 kubectl scale deployment test-tc --replicas=3
 kubectl autoscale deployment test-tc --cpu-percent=80 --min=1 --max=5

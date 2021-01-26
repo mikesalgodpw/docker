@@ -59,38 +59,7 @@ kubectl get service
 </article>
   </div>
 
-    </div>
-
-  
-
-
-  <details class="details-reset details-overlay details-overlay-dark" id="jumpto-line-details-dialog">
-    <summary data-hotkey="l" aria-label="Jump to line"></summary>
-    <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast linejump" aria-label="Jump to line">
-      <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="js-jump-to-line-form Box-body d-flex" action="" accept-charset="UTF-8" method="get">
-        <input class="form-control flex-auto mr-3 linejump-input js-jump-to-line-field" type="text" placeholder="Jump to line&hellip;" aria-label="Jump to line" autofocus>
-        <button type="submit" class="btn" data-close-dialog>Go</button>
-</form>    </details-dialog>
-  </details>
-
-    <div class="Popover anim-scale-in js-tagsearch-popover"
-     hidden
-     data-tagsearch-url="/in28minutes/devops-master-class/find-definition"
-     data-tagsearch-ref="master"
-     data-tagsearch-path="kubernetes/readme.md"
-     data-tagsearch-lang="Markdown"
-     data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.click_on_symbol&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;click_on_symbol&quot;,&quot;repository_id&quot;:235013588,&quot;ref&quot;:&quot;master&quot;,&quot;language&quot;:&quot;Markdown&quot;,&quot;originating_url&quot;:&quot;https://github.com/in28minutes/devops-master-class/blob/master/kubernetes/readme.md&quot;,&quot;user_id&quot;:67253244}}"
-     data-hydro-click-hmac="93a3c3e78faaffebc7f9ae79944c2a4eb271eb76545217b8cc95ae151416ebdd">
-  <div class="Popover-message Popover-message--large Popover-message--top-left TagsearchPopover mt-1 mb-4 mx-auto Box box-shadow-large">
-    <div class="TagsearchPopover-content js-tagsearch-popover-content overflow-auto" style="will-change:transform;">
-    </div>
-  </div>
-</div>
-
-
-
-
-  </div>
+    
 </div>
 
     </main>

@@ -49,6 +49,12 @@ cd kubernetes-engine-samples/hello-app
 docker build -t gcr.io/${PROJECT_ID}/hello-app:v1 .
 gcloud auth configure-docker
 docker push gcr.io/${PROJECT_ID}/hello-app:v1
+
+
+#(optional) Test:
+docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/hello-app:v1
+curl http://localhost:8080
+
 </code></pre>
 
 <h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Deploy and scale</h2>
@@ -62,6 +68,7 @@ kubectl expose deployment hello-app --name=hello-app-service --type=LoadBalancer
 kubectl scale deployment hello-app --replicas=3
 kubectl autoscale deployment hello-app --cpu-percent=80 --min=1 --max=5
 
+#shut down
 gcloud container clusters resize hello-cluster --num-nodes=0 --zone us-central1-c
 </code></pre>
 
@@ -73,13 +80,39 @@ docker push gcr.io/${PROJECT_ID}/hello-app:v2
 
 kubectl set image deployment/hello-app hello-app=gcr.io/${PROJECT_ID}/hello-app:v2
 watch kubectl get pods
+
+kubectl delete pod hello-world-rest-api-58ff5dd898-62l9d
+
 </code></pre>
 
+
+<h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>rollout history</h2>
+<pre><code>
+kubectl rollout history deployment/hello-app
+</code></pre>
+
+
+<h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>trouble shoot</h2>
+<pre><code>
+
+symptom when "k get po":
+col 'status' is pending
+
+debug:
+kubectl get events
+--> saw:
+14s         Warning   FailedScheduling         pod/hello-app-7df958fc78-8wj4r    0/1 nodes are available: 1 Insufficient cpu.
+--> then add one more node
+
+</code></pre>
 
 <h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Commands</h2>
 <pre><code>
 </code></pre>
 
+<h2><a id="user-content-commands" class="anchor" aria-hidden="true" href="#commands"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Commands</h2>
+<pre><code>
+</code></pre>
 
 
 </article>

@@ -111,7 +111,10 @@ kubectl get service
 
 #verify:
 In browser:
-http://<public IP>:8080/dynamicWeb1/test.jsp
+http://<public IP>:80/dynamicWeb1/test.jsp
+
+Remarks:
+The testing port is 80, NOT 8080 (due to port mapping in the above command)
 
 #scale
 kubectl scale deployment test-tc --replicas=3

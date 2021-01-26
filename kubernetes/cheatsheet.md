@@ -30,14 +30,26 @@
 
 
 
-#create a hello world
+
+#create a cluster
 export PROJECT_ID=cpb100-188605
 echo $PROJECT_ID
 
 gcloud config set project $PROJECT_ID
 gcloud config set compute/zone us-central1-c
-
 gcloud container clusters create hello-cluster
+
+
+#sample source code, build image
+git clone https://github.com/GoogleCloudPlatform/kubernetes-engine-samples
+cd kubernetes-engine-samples/hello-app
+
+docker build -t gcr.io/${PROJECT_ID}/hello-app:v1 .
+gcloud auth configure-docker
+docker push gcr.io/${PROJECT_ID}/hello-app:v1
+
+
+#deployment
 kubectl create deployment hello-app --image=gcr.io/${PROJECT_ID}/hello-app:v1
 kubectl expose deployment hello-app --name=hello-app-service --type=LoadBalancer --port 80 --target-port 8080
 
@@ -46,6 +58,14 @@ kubectl scale deployment hello-app --replicas=3
 kubectl autoscale deployment hello-app --cpu-percent=80 --min=1 --max=5
 
 gcloud container clusters resize hello-cluster --num-nodes=0 --zone us-central1-c
+
+
+#new img
+docker build -t gcr.io/${PROJECT_ID}/hello-app:v2 .
+docker push gcr.io/${PROJECT_ID}/hello-app:v2
+
+kubectl set image deployment/hello-app hello-app=gcr.io/${PROJECT_ID}/hello-app:v2
+watch kubectl get pods
 
 
 #verify

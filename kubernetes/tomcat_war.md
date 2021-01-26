@@ -53,7 +53,8 @@ docker tag test_tc gcr.io/${PROJECT_ID}/test-tc:v1
 </code></pre>
 
 <div>
-#remarks:
+
+<b>#remarks:</b>
 docker name should ONLY allow special char "-"
 i.e. NOT allow: _
 </div>
@@ -69,12 +70,12 @@ docker push gcr.io/${PROJECT_ID}/test-tc:v1
 
 
 <div>
-#Remarks for command "gcloud auth configure-docker":
+<b>#Remarks for command "gcloud auth configure-docker":</b>
 if it's the first time, u run this command,
 then u need to input "Y" in the inteactive conosle.
 
 
-Remarks for command "docker push gcr.io/${PROJECT_ID}/test-tc:v1":
+<b>Remarks for command "docker push gcr.io/${PROJECT_ID}/test-tc:v1":</b>
 1. If the image is gcp VM "centos-slave", then u need to run the push command 
    on the gcp VM "centos-slave".
 

@@ -1,0 +1,25 @@
+
+#tutorial is from: https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app#cloud-shell
+
+export PROJECT_ID=cpb100-188605
+echo $PROJECT_ID
+
+gcloud config set project $PROJECT_ID
+gcloud config set compute/zone us-central1-c
+
+gcloud container clusters create hello-cluster
+gcloud compute instances list
+
+kubectl create deployment hello-app --image=gcr.io/${PROJECT_ID}/hello-app:v1
+
+kubectl get nodes
+
+gcloud container clusters resize hello-cluster --num-nodes=0 --zone us-central1-c
+
+kubectl scale deployment hello-app --replicas=3
+kubectl autoscale deployment hello-app --cpu-percent=80 --min=1 --max=5
+
+kubectl expose deployment hello-app --name=hello-app-service --type=LoadBalancer --port 80 --target-port 8080
+
+kubectl get service
+

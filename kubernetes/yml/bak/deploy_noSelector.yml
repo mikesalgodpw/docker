@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-one
+spec:
+  selector:    #this is selector of the deploy
+    matchLabels:
+      app: label-not-exist     #(this is used to match with pod template? check the label of the template. If the pod template does NOT have this label, what will happen?)
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  
+  template:
+    metadata:
+      labels:
+        app: label-nginx-one  #(all containers will have this label? yes, verify by: kubectl get pods --show-labels  M2: kubectl get pods -l app=label-nginx-one)
+    spec:
+      containers:
+      - name: container-name-nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80

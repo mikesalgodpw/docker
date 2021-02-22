@@ -16,6 +16,6 @@ spec:
       containers:
       - name: container-name-nginx
         #image: nginx:1.14.2
-        image: devopstrainer/deploy:v1
+        image: devopstrainer/deploy:v2
         ports:
         - containerPort: 80
